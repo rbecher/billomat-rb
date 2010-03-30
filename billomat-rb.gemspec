@@ -18,7 +18,17 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
-     "README.textile"
+     "LICENSE",
+     "README.textile",
+     "Rakefile",
+     "TODO.textile",
+     "VERSION.yml",
+     "billomat-rb.gemspec",
+     "lib/billomat-rb.rb",
+     "lib/billomat/account.rb",
+     "lib/billomat/myself.rb",
+     "lib/billomat/settings.rb",
+     "lib/billomat/users.rb"
   ]
   s.homepage = %q{http://github.com/rbecher/billomat-rb}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -26,10 +36,6 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{billomat-rb}
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Ruby library for interacting with the RESTfull billomat api.}
-  s.test_files = [
-    "test/billomat-rb_test.rb",
-     "test/test_helper.rb"
-  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
