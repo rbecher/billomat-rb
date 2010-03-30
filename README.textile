@@ -4,4 +4,4 @@ A neat ruby library for interacting with the "RESTful API":http://www.billomat.c
 
 h2. Requirements
 
-billomat-rb requires activeresource and activesupport in version 2.3.2 or above.
+billomat-rb requires active_resource and active_support in version 2.3.2 or above.
