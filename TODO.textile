@@ -1,0 +1,27 @@
+h1. STD (Still To Do)
+
+h2. General
+* General framework
+* Formats
+** XML
+** JSON
+* Authentification
+* Distinguish read-only and read-write resources
+* Error handling
+
+h2. Resources
+* Customer
+* Articles
+* Units
+* Bills
+** Bill-Items
+** Bill-Comments
+** BIll-History
+** Payments
+* Offers
+** Offer-Items
+** Offer-Comments
+** Offer-History
+* Templates
+* Settinfs
+* User
