@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'active_support'
 require 'active_resource'
 
@@ -6,7 +7,7 @@ require 'active_resource'
 module Billomat
 
   class << self
-    attr_accessor :host_format, :domain_format, :protocol, :port 
+    attr_accessor :email, :password, :host_format, :domain_format, :protocol, :port 
     attr_reader :account, :key
 
     # Sets the account name and updates all resources with the new domain
@@ -18,12 +19,12 @@ module Billomat
     end
 
     # Sets up basic authentication credentials for all resources.
-    def authenticate (user,password)
+    def authenticate (email,password)
       resources.each do |klass|
-        klass.user = user
+        klass.email = email
         klass.password = password
       end
-      @user = user
+      @email = email
       @password = password
     end
 
@@ -41,8 +42,10 @@ module Billomat
       validate! rescue false
     end
 
+    # Same as validate
+    # but raises http-error when connection is invalid
     def validate!
-      !!Billomat.Account.find
+      !!Billomat::Account.find
     end
 
     def resources
@@ -51,7 +54,7 @@ module Billomat
   end
 
   self.host_format   = '%s://%s%s'
-  self.domain_format = '%s.mite.yo.lk'
+  self.domain_format = '%s.billomat.net'
   self.protocol      = 'http'
   self.port          = ''
 

@@ -8,6 +8,7 @@ h2. General
 * Authentification
 * Distinguish read-only and read-write resources
 * Error handling
+* SSL and not SSL (or even exclusively?)
 
 h2. Resources
 * Customer
