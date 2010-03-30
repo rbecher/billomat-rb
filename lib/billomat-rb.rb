@@ -83,6 +83,14 @@ module Billomat
     end
   end
 
+  module ResourceWithoutId
+    def save
+    connection.put(element_path(prefix_options), encode, self.class.headers).tap do |response|
+      load_attributes_from_response(response)
+    end
+  end
+  end
+
   # possibly ResourceWithActiveArchived
 
   class Base < ActiveResource::Base
@@ -171,3 +179,4 @@ end
 require File.dirname(__FILE__) + '/billomat/settings'
 require File.dirname(__FILE__) + '/billomat/users'
 require File.dirname(__FILE__) + '/billomat/myself'
+require File.dirname(__FILE__) + '/billomat/clients'
