@@ -132,7 +132,6 @@ module Billomat
   end
 
   class SingletonBase < Base
-    include ResourceWithoutWriteAccess
 
     class << self
       def collection_name
@@ -160,12 +159,15 @@ module Billomat
       raise MethodNotAvailable, "Method not supported on #{self.class.name}"
     end
   end
+
+  class ReadOnlySingletonBase < SingletonBase
+    include ResourceWithoutWriteAccess
+  end
 end
 
 #$:.unshift(File.dirname(__FILE__))
 #Dir[File.join(File.dirname(__FILE__), "billomat/*.rb")].each { |f| require f }
 
-require File.dirname(__FILE__) + '/billomat/account'
 require File.dirname(__FILE__) + '/billomat/settings'
 require File.dirname(__FILE__) + '/billomat/users'
 require File.dirname(__FILE__) + '/billomat/myself'

@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
      "VERSION.yml",
      "billomat-rb.gemspec",
      "lib/billomat-rb.rb",
-     "lib/billomat/account.rb",
      "lib/billomat/myself.rb",
      "lib/billomat/settings.rb",
      "lib/billomat/users.rb"

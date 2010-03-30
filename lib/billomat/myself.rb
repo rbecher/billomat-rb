@@ -1,4 +1,4 @@
-class Billomat::Myself < Billomat::SingletonBase
+class Billomat::Myself < Billomat::ReadOnlySingletonBase
 
   # non standard path
   def self.element_name

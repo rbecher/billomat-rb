@@ -1,0 +1,8 @@
+h1. Changes
+
+h2. Version 0.0.1
+
+* Added models for users, the logged in user (aka "myself") and settings
+
+h2. Version 0.0.0
+The first commit. Ever. Particularly unique
