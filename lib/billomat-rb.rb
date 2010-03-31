@@ -95,6 +95,7 @@ module Billomat
 
   class Base < ActiveResource::Base
     class << self
+      ActiveSupport.dasherize_xml = false
       def inherited(base)
         unless base == Billomat::SingletonBase
           Billomat.resources << base
@@ -170,6 +171,34 @@ module Billomat
 
   class ReadOnlySingletonBase < SingletonBase
     include ResourceWithoutWriteAccess
+  end
+end
+
+module ActiveSupport #:nodoc:
+  module CoreExtensions #:nodoc:
+    module Hash #:nodoc:
+      module Conversions
+        def self.included(klass)
+          klass.extend(ClassMethods)
+        end
+
+        module ClassMethods
+
+          private
+
+          # Dirty monkey patching indeed
+          def typecast_xml_value_with_array_fix(value)
+            value.delete('total')
+            value.delete('type')
+            value.delete('per_page')
+            value.delete('page')
+            typecast_xml_value_without_array_fix(value)
+          end
+
+          alias_method_chain :typecast_xml_value, :array_fix
+        end
+      end
+    end
   end
 end
 
