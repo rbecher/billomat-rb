@@ -149,6 +149,8 @@ module Billomat
     end
 
     def find
+      # TODO: Fetch whether ids where given or not
+      # and get the wanted one in those cases
       super(1)
     end
 
@@ -209,3 +211,4 @@ require File.dirname(__FILE__) + '/billomat/settings'
 require File.dirname(__FILE__) + '/billomat/users'
 require File.dirname(__FILE__) + '/billomat/myself'
 require File.dirname(__FILE__) + '/billomat/clients'
+require File.dirname(__FILE__) + '/billomat/units'
