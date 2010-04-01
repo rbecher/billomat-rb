@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{billomat-rb}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ronald Becher"]
-  s.date = %q{2010-03-30}
+  s.date = %q{2010-04-01}
   s.description = %q{A neat ruby library for interacting with the RESTfull API of billomat}
   s.email = %q{rb@ronald-becher.com}
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     "CHANGES.textile",
      "LICENSE",
      "README.textile",
      "Rakefile",
@@ -25,8 +26,10 @@ Gem::Specification.new do |s|
      "VERSION.yml",
      "billomat-rb.gemspec",
      "lib/billomat-rb.rb",
+     "lib/billomat/clients.rb",
      "lib/billomat/myself.rb",
      "lib/billomat/settings.rb",
+     "lib/billomat/unit.rb",
      "lib/billomat/users.rb"
   ]
   s.homepage = %q{http://github.com/rbecher/billomat-rb}
