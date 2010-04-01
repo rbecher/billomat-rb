@@ -108,10 +108,20 @@ module Billomat
         super
       end
 
-      def element_path(id,prefix_options = {}, query_options = nil)
+      def element_path(id, prefix_options = {}, query_options = nil)
         prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-        "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
+        "#{prefix(prefix_options)}#{collection_name}/#{id}#{query_string(query_options)}"
       end
+
+      def el_p(id,prefix_options = {}, query_options = nil)
+        element_path(id,prefix_options, query_options)
+      end
+
+      def coll_p(prefix_options = {}, query_options = nil)
+        collection_path(prefix_options, query_options)
+      end
+
+  
 
       def collection_path(prefix_options = {}, query_options = nil)
         prefix_options, query_options = split_options(prefix_options) if query_options.nil?
@@ -142,9 +152,21 @@ module Billomat
 
   class SingletonBase < Base
 
+    include ResourceWithoutId
+
     class << self
       def collection_name
         element_name
+      end
+
+      def element_path(id,prefix_options = {}, query_options = nil)
+        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+        "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
+      end
+
+      def collection_path(prefix_options = {}, query_options = nil)
+        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+        "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
       end
     end
 
@@ -211,4 +233,4 @@ require File.dirname(__FILE__) + '/billomat/settings'
 require File.dirname(__FILE__) + '/billomat/users'
 require File.dirname(__FILE__) + '/billomat/myself'
 require File.dirname(__FILE__) + '/billomat/clients'
-require File.dirname(__FILE__) + '/billomat/units'
+require File.dirname(__FILE__) + '/billomat/unit'

@@ -2,10 +2,6 @@ h1. STD (Still To Do)
 
 h2. General
 * General framework
-* Formats
-** XML
-** JSON
-* Authentification
 * Distinguish read-only and read-write resources
 * Error handling
 * SSL and not SSL (or even exclusively?)
@@ -24,5 +20,5 @@ h2. Resources
 ** Offer-Comments
 ** Offer-History
 * Templates
-* Settinfs
+* Settings
 * User
