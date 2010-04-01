@@ -1,5 +1,10 @@
 h1. Changes
 
+h2. Version 0.0.2
+
+* Added models for clients and units (almost working actually)
+* punched some holes through my wall because of an activesupport bug
+
 h2. Version 0.0.1
 
 * Added models for users, the logged in user (aka "myself") and settings
