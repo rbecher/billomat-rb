@@ -2,6 +2,11 @@ h1. billomat-rb
 
 A neat ruby library for interacting with the "RESTful API":http://www.billomat.com/api/ of "billomat":http://www.billomat.com/.
 
+h2. Warning
+
+This is work in progress (and has been for quite some time).
+Feedback and patches are welcome, though :)
+
 h2. Requirements
 
 billomat-rb requires active_resource and active_support in version 2.3.2 or above.

@@ -1,2 +1,2 @@
-class Billomat::Confirmation <  Billomat::Base
+class Billomat::Reminder <  Billomat::Base
 end

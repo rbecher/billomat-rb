@@ -1,2 +1,2 @@
-class Billomat::Invoice <  Billomat::Base
+class Billomat::Template <  Billomat::Base
 end

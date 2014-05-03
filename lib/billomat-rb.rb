@@ -1,11 +1,10 @@
 require 'rubygems'
-gem 'activeresource', '=2.3.5'
-gem 'activesupport', '=2.3.5'
+gem 'activeresource', '=3.2.17'
+gem 'activesupport', '=3.2.17'
 require 'active_support'
 require 'active_resource'
 
 # A neat ruby library for interacting with the RESTfull API of billomat
-
 module Billomat
 
   class << self
@@ -38,6 +37,7 @@ module Billomat
     def key=(value)
       resources.each do |klass|       
         klass.headers['X-BillomatApiKey'] = value
+        klass.headers['Accept'] = 'application/json' # hack :-(
       end
       @key = value
       @email = nil
@@ -53,7 +53,14 @@ module Billomat
     # Same as validate
     # but raises http-error when connection is invalid
     def validate!
-      !!Billomat::Myself.find
+      if Billomat.account.nil?
+        raise 'No Account set, use Billomat.account='
+      end
+      if !Billomat.key.nil? || ( !Billomat.email.nil? && !Billomat.password.nil? )
+        !!Billomat::Myself.find
+      else
+        raise 'No authentication info set, set either Billomat.key XOR use Billomat.authenticate(email, password)'
+      end
     end
 
     def resources
@@ -62,10 +69,12 @@ module Billomat
   end
 
   self.host_format   = '%s://%s%s%s' # protocol :// domain_format port path
-  self.domain_format = '%s.billomat.net'
+  #self.domain_format = '%s.billomat.net'
+  self.domain_format = 'localhost'
   self.api_path      = '/api'
   self.protocol      = 'http'
-  self.port          = '80'
+  #self.port          = '80'
+  self.port          = '8081'
 
   class MethodNotAvailable < StandardError; end
 
@@ -95,7 +104,9 @@ module Billomat
 
   class Base < ActiveResource::Base
     class << self
-      ActiveSupport.dasherize_xml = false
+
+      # TODO somehow use json http://www.billomat.com/de/api/grundlagen
+
       def inherited(base)
         unless base == Billomat::SingletonBase
           Billomat.resources << base
@@ -198,29 +209,12 @@ module Billomat
   end
 end
 
-module ActiveSupport #:nodoc:
-  module CoreExtensions #:nodoc:
-    module Hash #:nodoc:
-      module Conversions
-        def self.included(klass)
-          klass.extend(ClassMethods)
-        end
-
-        module ClassMethods
-
-          private
-
-          # Dirty monkey patching indeed
-          def typecast_xml_value_with_array_fix(value)
-            value.delete('total')
-            value.delete('type')
-            value.delete('per_page')
-            value.delete('page')
-            typecast_xml_value_without_array_fix(value)
-          end
-
-          alias_method_chain :typecast_xml_value, :array_fix
-        end
+module ActiveResource
+  module Formats
+    module JsonFormat
+      def decode(json)
+        formatted = Formats.remove_root(ActiveSupport::JSON.decode(json)).except('@page', '@per_page', '@total')
+        Formats.remove_root formatted
       end
     end
   end
@@ -230,6 +224,12 @@ end
 #Dir[File.join(File.dirname(__FILE__), "billomat/*.rb")].each { |f| require f }
 
 require File.dirname(__FILE__) + '/billomat/settings'
+require File.dirname(__FILE__) + '/billomat/articles'
+require File.dirname(__FILE__) + '/billomat/invoice'
+require File.dirname(__FILE__) + '/billomat/offer'
+require File.dirname(__FILE__) + '/billomat/reminder'
+require File.dirname(__FILE__) + '/billomat/template'
+require File.dirname(__FILE__) + '/billomat/role'
 require File.dirname(__FILE__) + '/billomat/users'
 require File.dirname(__FILE__) + '/billomat/myself'
 require File.dirname(__FILE__) + '/billomat/clients'

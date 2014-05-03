@@ -1,2 +1,2 @@
-class Billomat::Article <  Billomat::Base
+class Billomat::Invoice <  Billomat::Base
 end

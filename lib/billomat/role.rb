@@ -1,2 +1,2 @@
-class Billomat::Template <  Billomat::Base
+class Billomat::Role <  Billomat::Base
 end
