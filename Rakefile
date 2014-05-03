@@ -1,42 +1,48 @@
+# encoding: utf-8
+
 require 'rubygems'
+require 'bundler'
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts 'Run `bundle install` to install missing gems'
+  exit e.status_code
+end
 require 'rake'
 
-task :default => [:build]
+require 'jeweler'
+Jeweler::Tasks.new do |gem|
+  # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
+  gem.name = 'billomat-rb'
+  gem.homepage = 'http://github.com/rbecher/billomat-rb'
+  gem.license = 'MIT'
+  gem.summary = 'Ruby library for interacting with the RESTfull billomat api.'
+  gem.description = 'A neat ruby library for interacting with the RESTfull API of billomat'
+  gem.email = 'rb@ronald-becher.com'
+  gem.authors = ['Ronald Brachetti']
+  # dependencies defined in Gemfile
+end
+Jeweler::RubygemsDotOrgTasks.new
 
-$gem_name = "billomat-rb"
- 
-#desc "Run specs"
-#task :spec do
-#  sh "spec spec/* --format specdoc --color"
-#end
-
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "billomat-rb"
-    gem.summary = "Ruby library for interacting with the RESTfull billomat api."
-    gem.description = "A neat ruby library for interacting with the RESTfull API of billomat"
-    gem.email = "rb@ronald-becher.com"
-    gem.homepage = "http://github.com/rbecher/billomat-rb"
-    gem.authors = ["Ronald Becher"]
-    gem.rubyforge_project = "billomat-rb"
-    gem.add_dependency(%q<activesupport>, [">= 2.3.2"])
-    gem.add_dependency(%q<activeresource>, [">= 2.3.2"])
-  end
-  Jeweler::RubyforgeTasks.new do |rubyforge|
-    rubyforge.doc_task = "rdoc"
-  end
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
 end
 
-require 'rake/rdoctask'
+desc 'Code coverage detail'
+task :simplecov do
+  ENV['COVERAGE'] = 'true'
+  Rake::Task['test'].execute
+end
+
+task :default => :test
+
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION')
-    version = File.read('VERSION')
-  else
-    version = ""
-  end
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "billomat-rb #{version}"
